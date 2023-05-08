@@ -1,4 +1,7 @@
 .cards {
   max-width: 880px;
+  padding-top: 47px;
   display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 20px;
 }
