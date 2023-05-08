@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./pages/index.css">
+  <title>Редактировать профиль</title>
+</head>
+<body class="page">
+  <main class="content">
+    <header class="header page__centered">
+      <img class="header__logo" src="./images/header-logo.svg" alt="Логотип Mesto">
+    </header>
+    <section class="popup popup_opened">
+      <form class="popup__container" action="">
+        <h2 class="popup__header">Редактировать профиль</h2>
+        <input type="text" name="name" value="Жак-Ив Кусто" class="form__text">
+        <input type="text" name="status" value="Исследователь океана" class="form__text">
+        <input type="submit" value="Сохранить" class="form__button">
+      </form>
+    </section>
+    <section class="profile page__centered">
+      <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар">
+      <div class="profile__info">
+        <div class="profile__name-container">
+          <h2 class="profile__name">Жак-Ив Кусто</h2>
+          <button class="profile__edit"></button>
+        </div>
+        <p class="profile__description">Исследователь океана</p>
+      </div>
+      <button class="profile__add"></button>
+    </section>
+    <section class="cards page__centered">
+      <div class="card">
+        <img class="card__image" src="./images/grid-images/grid-image-1.jpg" alt="Фото старинной церкви">
+        <div class="card__description-container">
+          <p class="card__description">Карачаевск</p>
+          <!-- Сделать like_active -->
+          <button class="card__like card__like_active"></button>
+          <!-- Сделать like_active -->
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
