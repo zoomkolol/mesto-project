@@ -12,75 +12,77 @@
     <img class="header__logo" src="./images/header-logo.svg" alt="Логотип Mesto">
   </header>
   <main class="content">
-    <section class="popup page__centered">
-      <form class="popup__container">
-        <h2 class="popup__header">Редактировать профиль</h2>
-        <fieldset class="form__text-fields">
-          <input type="text" name="name" value="Жак-Ив Кусто" class="form__text">
-          <input type="text" name="status" value="Исследователь океана" class="form__text">
-        </fieldset>
-        <input type="submit" value="Сохранить" class="form__submit">
-        <button class="popup__close"></button>
-      </form>
-    </section>
     <section class="profile page__centered">
       <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар">
       <div class="profile__info">
         <div class="profile__name-container">
-          <h2 class="profile__name">Жак-Ив Кусто</h2>
-          <button class="profile__edit"></button>
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <button type="button" class="profile__edit"></button>
         </div>
         <p class="profile__description">Исследователь океана</p>
       </div>
-      <button class="profile__add"></button>
+      <button type="button" class="profile__add"></button>
     </section>
     <section class="cards page__centered">
-      <div class="card">
+      <article class="card">
         <img class="card__image" src="./images/grid-images/grid-image-1.jpg" alt="Фото старинной церкви">
         <div class="card__description-container">
-          <p class="card__description">Карачаевск</p>
-          <button class="card__like"></button>
+          <h2 class="card__description">Карачаевск</h2>
+          <button type="button" class="card__like"></button>
         </div>
-      </div>
-      <div class="card">
+      </article>
+      <article class="card">
         <img class="card__image" src="./images/grid-images/grid-image-2.jpg" alt="Фото Эльбруса">
         <div class="card__description-container">
-          <p class="card__description">Гора Эльбрус</p>
-          <button class="card__like"></button>
+          <h2 class="card__description">Гора Эльбрус</h2>
+          <button type="button" class="card__like"></button>
         </div>
-      </div>
-      <div class="card">
+      </article>
+      <article class="card">
         <img class="card__image" src="./images/grid-images/grid-image-3.jpg" alt="Фото леса и гор">
         <div class="card__description-container">
-          <p class="card__description">Домбай</p>
-          <button class="card__like"></button>
+          <h2 class="card__description">Домбай</h2>
+          <button type="button" class="card__like"></button>
         </div>
-      </div>
-      <div class="card">
+      </article>
+      <article class="card">
         <img class="card__image" src="./images/grid-images/grid-image-4.jpg" alt="Фото долины гейзеров">
         <div class="card__description-container">
-          <p class="card__description">Камчатка</p>
-          <button class="card__like"></button>
+          <h2 class="card__description">Камчатка</h2>
+          <button type="button" class="card__like"></button>
         </div>
-      </div>
-      <div class="card">
+      </article>
+      <article class="card">
         <img class="card__image" src="./images/grid-images/grid-image-5.jpg" alt="Фото Ленских столбов">
         <div class="card__description-container">
-          <p class="card__description">Ленские столбы</p>
-          <button class="card__like"></button>
+          <h2 class="card__description">Ленские столбы</h2>
+          <button type="button" class="card__like"></button>
         </div>
-      </div>
-      <div class="card">
+      </article>
+      <article class="card">
         <img class="card__image" src="./images/grid-images/grid-image-6.jpg" alt="Фото Сулакского каньона">
         <div class="card__description-container">
-          <p class="card__description">Сулакский каньон</p>
-          <button class="card__like "></button>
+          <h2 class="card__description">Сулакский каньон</h2>
+          <button type="button" class="card__like "></button>
         </div>
-      </div>
+      </article>
     </section>
   </main>
   <footer class="footer page__centered">
     <p class="footer__copyright">&#169; 2023 Mesto Russia</p>
   </footer>
+  <div class="popup">
+    <div class="popup__container">
+      <form class="popup__form" name="edit-profile">
+        <h2 class="popup__header">Редактировать профиль</h2>
+        <fieldset class="popup__text-fields">
+          <input type="text" name="name" placeholder="Жак-Ив Кусто" class="popup__text" id="popup__text_name" required>
+          <input type="text" name="status" placeholder="Исследователь океана" class="popup__text" id="popup__text_status" required>
+        </fieldset>
+        <button type="submit" value="Сохранить" class="popup__submit" id="popup__submit_btn">Сохранить</button>
+        <button type="button" class="popup__close"></button>
+      </form>
+    </div>
+  </div>
 </body>
 </html>

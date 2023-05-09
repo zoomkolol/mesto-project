@@ -1,15 +1,15 @@
-.form__text-fields {
+.popup__text-fields {
   display: flex;
   flex-flow: column wrap;
   row-gap: 30px;
   max-width: 238px;
   margin: 0 auto;
-  padding: 0;
+  padding: 0 0 48px;
   border: none;
 }
 
 @media screen and (max-width: 600px) {
-  .form__text-fields {
-    margin-bottom: 39px;
+  .popup__text-fields {
+    padding-bottom: 45px;
   }
 }

@@ -3,6 +3,7 @@
   padding: 0;
   background-image: url(../../../images/like.svg);
   background-color: inherit;
+  cursor: pointer;
   width: 22px;
   height: 19px;
   border: none;
