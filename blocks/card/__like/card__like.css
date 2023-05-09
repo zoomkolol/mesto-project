@@ -2,9 +2,7 @@
   margin: 0 20px 0 0;
   padding: 0;
   background-image: url(../../../images/like.svg);
-  background-repeat: no-repeat;
   background-color: inherit;
-  background-position: center;
   width: 22px;
   height: 19px;
   border: none;
@@ -13,4 +11,8 @@
 
 .card__like:hover {
   opacity: .6;
+}
+
+.card__like:active {
+  background-image: url(../../../images/like-active.svg);
 }

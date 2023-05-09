@@ -11,15 +11,16 @@
   <header class="header page__centered">
     <img class="header__logo" src="./images/header-logo.svg" alt="Логотип Mesto">
   </header>
-  <!-- Убрать всё в content? -->
-  <!-- <main class="content"></main> -->
-    <section class="popup popup_opened">
+  <main class="content">
+    <section class="popup popup_opened page__centered">
       <form class="popup__container" action="">
         <h2 class="popup__header">Редактировать профиль</h2>
         <input type="text" name="name" value="Жак-Ив Кусто" class="form__text">
         <input type="text" name="status" value="Исследователь океана" class="form__text">
-        <input type="submit" value="Сохранить" class="form__button">
+        <input type="submit" value="Сохранить" class="form__submit">
+        <button class="popup__close"></button>
       </form>
+
     </section>
     <section class="profile page__centered">
       <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар">
@@ -37,57 +38,46 @@
         <img class="card__image" src="./images/grid-images/grid-image-1.jpg" alt="Фото старинной церкви">
         <div class="card__description-container">
           <p class="card__description">Карачаевск</p>
-          <!-- Сделать like_active -->
-          <button class="card__like card__like_active"></button>
-          <!-- Сделать like_active -->
+          <button class="card__like"></button>
         </div>
       </div>
       <div class="card">
         <img class="card__image" src="./images/grid-images/grid-image-2.jpg" alt="Фото Эльбруса">
         <div class="card__description-container">
           <p class="card__description">Гора Эльбрус</p>
-          <!-- Сделать like_active -->
-          <button class="card__like card__like_active"></button>
-          <!-- Сделать like_active -->
+          <button class="card__like"></button>
         </div>
       </div>
       <div class="card">
-        <img class="card__image" src="./images/grid-images/grid-image-1.jpg" alt="Фото старинной церкви">
+        <img class="card__image" src="./images/grid-images/grid-image-3.jpg" alt="Фото леса и гор">
         <div class="card__description-container">
-          <p class="card__description">Карачаевск</p>
-          <!-- Сделать like_active -->
-          <button class="card__like card__like_active"></button>
-          <!-- Сделать like_active -->
+          <p class="card__description">Домбай</p>
+          <button class="card__like"></button>
         </div>
       </div>
       <div class="card">
-        <img class="card__image" src="./images/grid-images/grid-image-1.jpg" alt="Фото старинной церкви">
+        <img class="card__image" src="./images/grid-images/grid-image-4.jpg" alt="Фото долины гейзеров">
         <div class="card__description-container">
-          <p class="card__description">Карачаевск</p>
-          <!-- Сделать like_active -->
-          <button class="card__like card__like_active"></button>
-          <!-- Сделать like_active -->
+          <p class="card__description">Камчатка</p>
+          <button class="card__like"></button>
         </div>
       </div>
       <div class="card">
-        <img class="card__image" src="./images/grid-images/grid-image-1.jpg" alt="Фото старинной церкви">
+        <img class="card__image" src="./images/grid-images/grid-image-5.jpg" alt="Фото Ленских столбов">
         <div class="card__description-container">
-          <p class="card__description">Карачаевск</p>
-          <!-- Сделать like_active -->
-          <button class="card__like card__like_active"></button>
-          <!-- Сделать like_active -->
+          <p class="card__description">Ленские столбы</p>
+          <button class="card__like"></button>
         </div>
       </div>
       <div class="card">
-        <img class="card__image" src="./images/grid-images/grid-image-1.jpg" alt="Фото старинной церкви">
+        <img class="card__image" src="./images/grid-images/grid-image-6.jpg" alt="Фото Сулакского каньона">
         <div class="card__description-container">
-          <p class="card__description">Карачаевск</p>
-          <!-- Сделать like_active -->
-          <button class="card__like card__like_active"></button>
-          <!-- Сделать like_active -->
+          <p class="card__description">Сулакский каньон</p>
+          <button class="card__like "></button>
         </div>
       </div>
     </section>
+  </main>
   <footer class="footer page__centered">
     <p class="footer__copyright">&#169; 2023 Mesto Russia</p>
   </footer>

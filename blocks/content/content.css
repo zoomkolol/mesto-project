@@ -1,4 +1,3 @@
-/*.content {
-  width: 1280px;
-  height: 720px;
-}*/
+.content {
+  width: 100%;
+}
