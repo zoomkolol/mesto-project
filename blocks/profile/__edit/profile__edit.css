@@ -20,5 +20,6 @@
   .profile__edit {
     width: 18px;
     height: 18px;
+    margin-left: 10px;
   }
 }
