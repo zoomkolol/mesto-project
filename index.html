@@ -23,50 +23,7 @@
       </div>
       <button type="button" class="profile__add"></button>
     </section>
-    <section class="cards page__centered">
-      <article class="card">
-        <img class="card__image" src="./images/grid-images/grid-image-1.jpg" alt="Фото старинной церкви">
-        <div class="card__description-container">
-          <h2 class="card__description">Карачаевск</h2>
-          <button type="button" class="card__like"></button>
-        </div>
-      </article>
-      <article class="card">
-        <img class="card__image" src="./images/grid-images/grid-image-2.jpg" alt="Фото Эльбруса">
-        <div class="card__description-container">
-          <h2 class="card__description">Гора Эльбрус</h2>
-          <button type="button" class="card__like"></button>
-        </div>
-      </article>
-      <article class="card">
-        <img class="card__image" src="./images/grid-images/grid-image-3.jpg" alt="Фото леса и гор">
-        <div class="card__description-container">
-          <h2 class="card__description">Домбай</h2>
-          <button type="button" class="card__like"></button>
-        </div>
-      </article>
-      <article class="card">
-        <img class="card__image" src="./images/grid-images/grid-image-4.jpg" alt="Фото долины гейзеров">
-        <div class="card__description-container">
-          <h2 class="card__description">Камчатка</h2>
-          <button type="button" class="card__like"></button>
-        </div>
-      </article>
-      <article class="card">
-        <img class="card__image" src="./images/grid-images/grid-image-5.jpg" alt="Фото Ленских столбов">
-        <div class="card__description-container">
-          <h2 class="card__description">Ленские столбы</h2>
-          <button type="button" class="card__like"></button>
-        </div>
-      </article>
-      <article class="card">
-        <img class="card__image" src="./images/grid-images/grid-image-6.jpg" alt="Фото Сулакского каньона">
-        <div class="card__description-container">
-          <h2 class="card__description">Сулакский каньон</h2>
-          <button type="button" class="card__like "></button>
-        </div>
-      </article>
-    </section>
+    <section class="cards page__centered"></section>
   </main>
   <footer class="footer page__centered">
     <p class="footer__copyright">&#169; 2023 Mesto Russia</p>
@@ -84,6 +41,15 @@
       </form>
     </div>
   </div>
+  <template id="card-template">
+    <article class="card">
+      <img class="card__image" src="" alt="">
+      <div class="card__description-container">
+        <h2 class="card__description"></h2>
+        <button type="button" class="card__like"></button>
+      </div>
+    </article>
+  </template>
   <script src="./vendor/script.js"></script>
 </body>
 </html>
