@@ -63,8 +63,8 @@ function formSubmitHandler(evt) {
 
 
 function addCard(cardName, cardLink) {
-  const cardTemplate = document.querySelector('#card-template');
-  const cardElement = cardTemplate.content.cloneNode(true);
+  const cardTemplate = document.querySelector('#card-template').content;
+  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
 
   cardElement.querySelector('.card__description').textContent = cardName;
   cardElement.querySelector('.card__image').setAttribute('src', cardLink);
