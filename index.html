@@ -37,17 +37,16 @@
           <input type="text" name="status" placeholder="Исследователь океана" class="popup__text" id="popup__text_status" required>
         </fieldset>
         <button type="submit" value="Сохранить" class="popup__submit" id="popup__submit_btn">Сохранить</button>
-        <button type="button" class="popup__close"></button>
       </form>
       <form class="popup__form" name="edit-card">
         <h2 class="popup__header">Новое место</h2>
         <fieldset class="popup__text-fields">
           <input type="text" name="place" placeholder="Название" class="popup__text" id="popup__text_place" required>
-          <input type="text" name="link" placeholder="Ссылка на картинку" class="popup__text" id="popup__text_link" required>
+          <input type="url" name="link" placeholder="Ссылка на картинку" class="popup__text" id="popup__text_link" required>
         </fieldset>
         <button type="submit" value="Создать" class="popup__submit" id="popup__submit_btn">Создать</button>
-        <button type="button" class="popup__close"></button>
       </form>
+      <button type="button" class="popup__close"></button>
     </div>
   </div>
   <template id="card-template">
@@ -57,6 +56,7 @@
         <h2 class="card__description"></h2>
         <button type="button" class="card__like"></button>
       </div>
+      <button type="button" class="card__delete"></button>
     </article>
   </template>
   <script src="./vendor/script.js"></script>

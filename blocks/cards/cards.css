@@ -2,6 +2,7 @@
   max-width: 880px;
   padding-top: 51px;
   display: grid;
+grid-auto-flow: dense;
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
   row-gap: 20px;
