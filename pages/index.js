@@ -99,6 +99,7 @@ initialCards.forEach(function(card) {
   addCard(card.name, card.link);
 });
 
+updateValues();
 profileEditBtn.addEventListener('click', openPopupEditProfileBtn);
 profileAddBtn.addEventListener('click', openPopupEditCardBtn);
 popupCloseBtn.forEach(btn => btn.addEventListener('click', closePopupBtn));
