@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./pages/index.css">
+
   <title>Mesto</title>
 </head>
 <body class="page">
@@ -28,28 +29,36 @@
   <footer class="footer page__centered">
     <p class="footer__copyright">&#169; 2023 Mesto Russia</p>
   </footer>
-  <div class="popup">
+  <div class="popup popup__edit-profile">
     <div class="popup__container">
       <form class="popup__form" name="edit-profile">
         <h2 class="popup__header">Редактировать профиль</h2>
-        <fieldset class="popup__text-fields">
+        <div class="popup__text-container">
           <input type="text" name="name" placeholder="Жак-Ив Кусто" class="popup__text" id="popup__text_name" required>
           <input type="text" name="status" placeholder="Исследователь океана" class="popup__text" id="popup__text_status" required>
-        </fieldset>
+        </div>
         <button type="submit" value="Сохранить" class="popup__submit" id="popup__submit_btn">Сохранить</button>
+        <button type="button" class="popup__close"></button>
       </form>
+    </div>
+  </div>
+  <div class="popup popup__edit-card">
+    <div class="popup__container">
       <form class="popup__form" name="edit-card">
         <h2 class="popup__header">Новое место</h2>
-        <fieldset class="popup__text-fields">
+        <div class="popup__text-container">
           <input type="text" name="place" placeholder="Название" class="popup__text" id="popup__text_place" required>
           <input type="url" name="link" placeholder="Ссылка на картинку" class="popup__text" id="popup__text_link" required>
-        </fieldset>
+        </div>
         <button type="submit" value="Создать" class="popup__submit" id="popup__submit_btn">Создать</button>
+        <button type="button" class="popup__close"></button>
       </form>
-      <div class="popup__image-container">
-        <img src="" alt="" class="popup__image">
-        <p class="popup__img-description"></p>
-      </div>
+    </div>
+  </div>
+  <div class="popup popup__image-container">
+    <div class="popup__container">
+      <img src="" alt="" class="popup__image">
+      <p class="popup__img-description"></p>
       <button type="button" class="popup__close"></button>
     </div>
   </div>
@@ -63,6 +72,7 @@
       <button type="button" class="card__delete"></button>
     </article>
   </template>
-  <script src="./vendor/script.js"></script>
+  <script src="./blocks/cards/cards.js"></script>
+  <script src="./pages/index.js"></script>
 </body>
 </html>
