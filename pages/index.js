@@ -33,6 +33,7 @@ function openPopup(popup) {
 }
 
 function openPopupEditProfileBtn() {
+  updateValues();
   openPopup(popupEditProfile);
 }
 
@@ -49,22 +50,25 @@ function closePopupBtn(evt) {
   closePopup(popupToClose);
 }
 
-function profileFormSubmitHandler(evt) {
+function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileDesc.textContent = jobInput.value;
-  updateValues();
   closePopup(popupEditProfile);
 }
 
-function cardFormSubmitHandler(evt) {
+function handleCardFormSubmit(evt) {
   evt.preventDefault();
-  addCard(placeInput.value, linkInput.value);
+  renderCard(placeInput.value, linkInput.value);
   cardForm.reset();
   closePopup(popupEditCard);
 }
 
-function addCard(cardName, cardLink) {
+function createCard(cardName, cardLink) {
+  if(cardName == undefined) {
+    console.log('cardName is ' + cardName);
+  }
+
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
   const cardImage = cardElement.querySelector('.card__image');
   const cardImgDesc = cardElement.querySelector('.card__description');
@@ -86,23 +90,28 @@ function addCard(cardName, cardLink) {
 
   cardImage.addEventListener('click', () => handleCardClick(cardLink, cardName));
 
-  cardsContainer.prepend(cardElement);
+  return cardElement;
 }
 
 function handleCardClick(link, name) {
   openPopup(popupImageContainer);
   popupImage.setAttribute('src', link);
+  popupImage.setAttribute('alt', name);
   popupImgDesc.textContent = name;
 }
 
+function renderCard(cardName, cardLink) {
+  const newCard = createCard(cardName, cardLink);
+  cardsContainer.prepend(newCard);
+}
+
 initialCards.forEach(function(card) {
-  addCard(card.name, card.link);
+  renderCard(card.name, card.link);
 });
 
-updateValues();
 profileEditBtn.addEventListener('click', openPopupEditProfileBtn);
 profileAddBtn.addEventListener('click', openPopupEditCardBtn);
 popupCloseBtn.forEach(btn => btn.addEventListener('click', closePopupBtn));
-profileForm.addEventListener('submit', profileFormSubmitHandler);
-cardForm.addEventListener('submit', cardFormSubmitHandler);
+profileForm.addEventListener('submit', handleProfileFormSubmit);
+cardForm.addEventListener('submit', handleCardFormSubmit);
 
