@@ -6,4 +6,6 @@
   font-size: 12px;
   line-height: 15px;
   color: #FFF;
+  position: inherit;
+  z-index: 2;
 }

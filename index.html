@@ -31,11 +31,18 @@
   </footer>
   <div class="popup popup__edit-profile">
     <div class="popup__container">
-      <form class="popup__form" name="edit-profile">
+      <div class="popup__overlay"></div>
+      <form class="popup__form" name="edit-profile" novalidate>
         <h2 class="popup__header">Редактировать профиль</h2>
         <div class="popup__text-container">
-          <input type="text" name="name" placeholder="Жак-Ив Кусто" class="popup__text" id="popup__text_name" required>
-          <input type="text" name="status" placeholder="Исследователь океана" class="popup__text" id="popup__text_status" required>
+          <label for="popup__text_name">
+            <input type="text" name="name" placeholder="Жак-Ив Кусто" class="popup__text" id="popup__text_name" required minlength="2" maxlength="40">
+            <span class="popup__text_name_error popup__text_error">Вы пропустили это поле.</span>
+          </label>
+          <label for="popup__text_status">
+            <input type="text" name="status" placeholder="Исследователь океана" class="popup__text" id="popup__text_status" required minlength="2" maxlength="200">
+            <span class="popup__text_status_error popup__text_error">Введите адрес сайта.</span>
+          </label>
         </div>
         <button type="submit" value="Сохранить" class="popup__submit" id="popup__submit-edit-profile_btn">Сохранить</button>
       </form>
@@ -44,11 +51,18 @@
   </div>
   <div class="popup popup__edit-card">
     <div class="popup__container">
+      <div class="popup__overlay"></div>
       <form class="popup__form" name="edit-card">
         <h2 class="popup__header">Новое место</h2>
         <div class="popup__text-container">
-          <input type="text" name="place" placeholder="Название" class="popup__text" id="popup__text_place" required>
-          <input type="url" name="link" placeholder="Ссылка на картинку" class="popup__text" id="popup__text_link" required>
+          <label for="popup__text_place">
+            <input type="text" name="place" placeholder="Название" class="popup__text" id="popup__text_place" required minlength="2" maxlength="30">
+            <span class="popup__text_place_error popup__text_error">Вы пропустили это поле.</span>
+          </label>
+          <label for="popup__text_link">
+            <input type="url" name="link" placeholder="Ссылка на картинку" class="popup__text" id="popup__text_link" required>
+            <span class="popup__text_link_error popup__text_error">Вы пропустили это поле.</span>
+          </label>
         </div>
         <button type="submit" value="Создать" class="popup__submit" id="popup__submit-edit-card_btn">Создать</button>
       </form>
@@ -57,6 +71,7 @@
   </div>
   <div class="popup popup__image-container">
     <div class="popup__container">
+      <div class="popup__overlay"></div>
       <img src="" alt="" class="popup__image">
       <p class="popup__img-description"></p>
       <button type="button" class="popup__close"></button>
@@ -72,7 +87,6 @@
       <button type="button" class="card__delete"></button>
     </article>
   </template>
-  <script src="./blocks/cards/cards.js"></script>
-  <script src="./pages/index.js"></script>
+  <script type="module" src="./components/index.js"></script>
 </body>
 </html>
