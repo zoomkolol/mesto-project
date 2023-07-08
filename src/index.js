@@ -12,8 +12,13 @@ const popup = document.querySelectorAll('.popup');
 const profileForm = document.querySelector('form[name="edit-profile"]');
 export const cardForm = document.querySelector('form[name="edit-card"]');
 
-
-enableValidation();
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__text',
+  submitButtonSelector: '.popup__submit',
+  inputErrorClass: 'popup__text_type_error',
+  errorClass: 'popup__text_error_active'
+});
 
 profileEditBtn.addEventListener('click', openPopupEditProfileBtn);
 profileAddBtn.addEventListener('click', openPopupEditCardBtn);
@@ -31,3 +36,4 @@ cardForm.addEventListener('submit', handleCardFormSubmit);
 initialCards.forEach(function(card) {
   renderCard(card.name, card.link);
 });
+
