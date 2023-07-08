@@ -26,10 +26,17 @@ const checkInputValidity = (formElement, inputElement, inputErrorClass, errorCla
   }
 };
 
+const disableButton = (buttonElement) => {
+  buttonElement.setAttribute('disabled', '');
+}
+
 const setEventListeners = (form, inputSelector, submitButtonSelector, inputErrorClass, errorClass) => {
   const inputList = Array.from(form.querySelectorAll(inputSelector));
   const buttonElement = form.querySelector(submitButtonSelector);
   toggleButtonState(inputList, buttonElement);
+  form.addEventListener('reset', () => {
+    disableButton(buttonElement)
+  });
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
       checkInputValidity(form, inputElement, inputErrorClass, errorClass);
@@ -56,7 +63,7 @@ const hasInvalidInput = (inputList) => {
 
 const toggleButtonState = (inputList, buttonElement) => {
   if(hasInvalidInput(inputList)) {
-    buttonElement.setAttribute('disabled', '');
+    disableButton(buttonElement);
   }
   else {
     buttonElement.removeAttribute('disabled');

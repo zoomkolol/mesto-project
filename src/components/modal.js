@@ -22,7 +22,7 @@ function updateValues() {
 }
 
 export function openPopup(popup) {
-  document.addEventListener('keydown', handleClosePopupKey);
+  document.addEventListener('keydown', handleEscapeKey);
   popup.classList.add('popup_opened');
 }
 
@@ -37,16 +37,16 @@ export function openPopupEditCardBtn() {
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', handleEscapeKey);
 }
 
 export function closePopupBtn(evt) {
   closePopup(evt.closest('.popup'));
 }
 
-export function handleClosePopupKey(evt) {
+function handleEscapeKey(evt) {
   if(evt.key === 'Escape') {
     closePopup(document.querySelector('.popup_opened'));
-    document.removeEventListener('keydown', handleClosePopupKey);
   }
 }
 
@@ -59,6 +59,5 @@ export function handleProfileFormSubmit() {
 export function handleCardFormSubmit() {
   renderCard(placeInput.value, linkInput.value);
   cardForm.reset();
-  popupEditCardSubmit.setAttribute('disabled', '');
   closePopup(popupEditCard);
 }
