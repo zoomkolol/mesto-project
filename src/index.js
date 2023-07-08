@@ -1,6 +1,7 @@
-import {enableValidation} from './validate.js';
-import {openPopupEditProfileBtn, openPopupEditCardBtn, closePopupBtn, handleClosePopupKey, handleProfileFormSubmit, handleCardFormSubmit} from './modal.js';
-import {initialCards, renderCard} from './card.js';
+import './styles/index.css';
+import {enableValidation} from './components/validate.js';
+import {openPopupEditProfileBtn, openPopupEditCardBtn, closePopupBtn, handleClosePopupKey, handleProfileFormSubmit, handleCardFormSubmit} from './components/modal.js';
+import {initialCards, renderCard} from './components/card.js';
 
 export const profile = document.querySelector('.profile');
 const profileEditBtn = profile.querySelector('.profile__edit');
@@ -22,7 +23,6 @@ popup.forEach(popup => popup.addEventListener('click', function(evt) {
     closePopupBtn(evt.target);
   }
 }));
-popup.forEach(popup => popup.addEventListener('keydown', handleClosePopupKey));
 
 profileForm.addEventListener('submit', handleProfileFormSubmit);
 
