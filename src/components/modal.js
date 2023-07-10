@@ -5,8 +5,9 @@ const popupEditProfile = document.querySelector('.popup__edit-profile');
 const popupEditCard = document.querySelector('.popup__edit-card');
 const popupEditCardSubmit = popupEditCard.querySelector('.popup__submit');
 
-const profileName = document.querySelector('.profile__name');
-const profileDesc = document.querySelector('.profile__description');
+export const profileName = document.querySelector('.profile__name');
+export const profileDesc = document.querySelector('.profile__description');
+export const profileAvatar = document.querySelector('.profile__avatar');
 
 const nameInput = document.querySelector('input[name="name"]');
 const jobInput = document.querySelector('input[name="status"]');

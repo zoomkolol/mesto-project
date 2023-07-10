@@ -1,7 +1,7 @@
 import './styles/index.css';
 import {enableValidation} from './components/validate.js';
 import {openPopupEditProfileBtn, openPopupEditCardBtn, closePopupBtn, handleProfileFormSubmit, handleCardFormSubmit} from './components/modal.js';
-import {initialCards, renderCard} from './components/card.js';
+import {getCards, getMyProfile} from './components/api.js';
 
 export const profile = document.querySelector('.profile');
 const profileEditBtn = profile.querySelector('.profile__edit');
@@ -33,7 +33,5 @@ profileForm.addEventListener('submit', handleProfileFormSubmit);
 
 cardForm.addEventListener('submit', handleCardFormSubmit);
 
-initialCards.forEach(function(card) {
-  renderCard(card.name, card.link);
-});
-
+getCards();
+getMyProfile();
