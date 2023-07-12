@@ -1,5 +1,6 @@
 .profile {
   max-width: 880px;
+  padding-top: 42px;
   display: flex;
 }
 

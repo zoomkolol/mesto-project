@@ -1,0 +1,13 @@
+.profile__avatar-hover {
+  z-index: 0;
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  width: 26px;
+  height: 26px;
+  background: url(../../../images/edit-button.svg) no-repeat center;
+  background-size: 26px;
+  color: white;
+  opacity: 0;
+  cursor: pointer;
+}

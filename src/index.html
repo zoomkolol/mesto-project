@@ -13,7 +13,11 @@
   </header>
   <main class="content">
     <section class="profile page__centered">
-      <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар">
+      <div class="profile__avatar-container">
+        <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар">
+        <div class="profile__avatar-hover"></div>
+      </div>
+
       <div class="profile__info">
         <div class="profile__name-container">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -63,7 +67,23 @@
             <span class="popup__text_link_error popup__text_error"></span>
           </label>
         </div>
-        <button type="submit" value="Создать" class="popup__submit" id="popup__submit-edit-card_btn">Создать</button>
+        <button type="submit" value="Создать" class="popup__submit" id="popup__submit-edit-card_btn">Сохранить</button>
+      </form>
+      <button type="button" class="popup__close"></button>
+    </div>
+  </div>
+  <div class="popup popup__edit-avatar">
+    <div class="popup__container">
+      <div class="popup__overlay"></div>
+      <form class="popup__form" name="edit-avatar" novalidate>
+        <h2 class="popup__header">Обновить аватар</h2>
+        <div class="popup__text-container">
+          <label for="popup__text_avatar">
+            <input type="url" name="avatar" placeholder="Ссылка на картинку" class="popup__text" id="popup__text_avatar" required>
+            <span class="popup__text_avatar_error popup__text_error"></span>
+          </label>
+        </div>
+        <button type="submit" value="Создать" class="popup__submit" id="popup__submit-edit-avatar_btn">Сохранить</button>
       </form>
       <button type="button" class="popup__close"></button>
     </div>
@@ -81,7 +101,10 @@
       <img class="card__image" src="" alt="">
       <div class="card__description-container">
         <h2 class="card__description"></h2>
-        <button type="button" class="card__like"></button>
+        <div class="card__like-container">
+          <button type="button" class="card__like"></button>
+          <p class="card__like-counter">1</p>
+        </div>
       </div>
       <button type="button" class="card__delete"></button>
     </article>

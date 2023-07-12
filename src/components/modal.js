@@ -1,25 +1,36 @@
 import {renderCard} from './card.js';
 import {cardForm} from '../index.js';
+import {changeName, changeAvatar, addCard} from './api.js';
 
 const popupEditProfile = document.querySelector('.popup__edit-profile');
 const popupEditCard = document.querySelector('.popup__edit-card');
-const popupEditCardSubmit = popupEditCard.querySelector('.popup__submit');
+const popupAddAvatar = document.querySelector('.popup__edit-avatar');
 
 export const profileName = document.querySelector('.profile__name');
 export const profileDesc = document.querySelector('.profile__description');
 export const profileAvatar = document.querySelector('.profile__avatar');
 
+const profileSubmit = document.querySelector('#popup__submit-edit-profile_btn');
+const cardSubmit = document.querySelector('#popup__submit-edit-card_btn');
+const avatarSubmit = document.querySelector('#popup__submit-edit-avatar_btn');
+
+
 const nameInput = document.querySelector('input[name="name"]');
 const jobInput = document.querySelector('input[name="status"]');
+const avatarInput = document.querySelector('input[name="avatar"]');
 
 const placeInput = document.querySelector('input[name="place"]');
 const linkInput = document.querySelector('input[name="link"]');
 
 
 
-function updateValues() {
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileDesc.textContent;
+export function updateProfileValues(name, about) {
+  profileName.textContent = name;
+  profileDesc.textContent = about;
+}
+
+export function updateAvatar(avatar) {
+  profileAvatar.src = avatar;
 }
 
 export function openPopup(popup) {
@@ -28,12 +39,17 @@ export function openPopup(popup) {
 }
 
 export function openPopupEditProfileBtn() {
-  updateValues();
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileDesc.textContent;
   openPopup(popupEditProfile);
 }
 
 export function openPopupEditCardBtn() {
   openPopup(popupEditCard);
+}
+
+export function openPopupAddAvatar() {
+  openPopup(popupAddAvatar);
 }
 
 function closePopup(popup) {
@@ -52,13 +68,17 @@ function handleEscapeKey(evt) {
 }
 
 export function handleProfileFormSubmit() {
-  profileName.textContent = nameInput.value;
-  profileDesc.textContent = jobInput.value;
+  changeName(nameInput.value, jobInput.value, profileSubmit);
   closePopup(popupEditProfile);
 }
 
+export function handleAvatarFormSubmit() {
+  changeAvatar(avatarInput.value, avatarSubmit);
+  closePopup(popupAddAvatar);
+}
+
 export function handleCardFormSubmit() {
-  renderCard(placeInput.value, linkInput.value);
+  addCard(placeInput.value, linkInput.value, cardSubmit);
   cardForm.reset();
   closePopup(popupEditCard);
 }
