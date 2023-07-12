@@ -1,6 +1,6 @@
 import { data } from 'autoprefixer';
 import {updateProfileValues, updateAvatar, profileAvatar} from './modal';
-import {renderCard, updateLikes} from "./card";
+import {renderCard} from "./card";
 
 let myID;
 
@@ -107,7 +107,7 @@ export function changeAvatar(url, button) {
 
 export function addCard(name, link, button) {
   renderLoadingText(button, true);
-  fetch('https://nomoreparties.co/v1/plus-cohort-26/cards', {
+  return fetch('https://nomoreparties.co/v1/plus-cohort-26/cards', {
     method: 'POST',
     headers: config.headers,
     body: JSON.stringify({
@@ -122,7 +122,7 @@ export function addCard(name, link, button) {
   return Promise.reject(`Ошибка: ${res.status}`);
   })
   .then((data) => {
-    renderCard(data.name, data.link, data.likes.length, true, data._id, false)
+    renderCard(data.name, data.link, data.likes.length, true, data._id, false);
   })
   .catch(err => console.log(err))
   .finally(() => {
@@ -131,7 +131,7 @@ export function addCard(name, link, button) {
 }
 
 export function deleteCard(id) {
-  fetch(`https://nomoreparties.co/v1/plus-cohort-26/cards/${id}`, {
+  return fetch(`https://nomoreparties.co/v1/plus-cohort-26/cards/${id}`, {
     method: 'DELETE',
     headers: config.headers,
   })
@@ -144,8 +144,8 @@ export function deleteCard(id) {
   .catch(err => console.log(err));
 }
 
-export function likeCard(id) {
-  fetch(`https://nomoreparties.co/v1/plus-cohort-26/cards/likes/${id}`, {
+export function likeCard(id, cardLikesCounter) {
+  return fetch(`https://nomoreparties.co/v1/plus-cohort-26/cards/likes/${id}`, {
     method: 'PUT',
     headers: config.headers,
   })
@@ -155,12 +155,12 @@ export function likeCard(id) {
     }
   return Promise.reject(`Ошибка: ${res.status}`);
   })
-  .then(data => updateLikes(data.likes.length))
+  .then(data => cardLikesCounter.textContent = data.likes.length)
   .catch(err => console.log(err));
 }
 
-export function removeLike(id) {
-  fetch(`https://nomoreparties.co/v1/plus-cohort-26/cards/likes/${id}`, {
+export function removeLike(id, cardLikesCounter) {
+  return fetch(`https://nomoreparties.co/v1/plus-cohort-26/cards/likes/${id}`, {
     method: 'DELETE',
     headers: config.headers,
   })
@@ -170,6 +170,6 @@ export function removeLike(id) {
     }
   return Promise.reject(`Ошибка: ${res.status}`);
   })
-  .then(data => updateLikes(data.likes.length))
+  .then(data => cardLikesCounter.textContent = data.likes.length)
   .catch(err => console.log(err));
 }

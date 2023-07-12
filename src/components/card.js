@@ -33,18 +33,7 @@ function createCard(cardName, cardLink, cardLikes, myCard, cardId, isLiked) {
   }
 
   cardLikeBtn.addEventListener('click', function(evt) {
-    if(evt.target.classList.contains('card__like_active')) {
-      evt.target.classList.toggle('card__like_active');
-      removeLike(cardId);
-    }
-    else {
-      evt.target.classList.toggle('card__like_active');
-      likeCard(cardId);
-    }
-  })
-
-  cardLikeBtn.addEventListener('click', function(evt) {
-    cardLikesCounter.textContent = likesCount;
+    handleLikeClick(evt, cardId, cardLikesCounter);
   })
 
   if(!myCard) {
@@ -63,10 +52,15 @@ function createCard(cardName, cardLink, cardLikes, myCard, cardId, isLiked) {
   return cardElement;
 }
 
-export function updateLikes(likesAmount) {
-  likesCount = likesAmount;
-  console.log('Сейчас лайков на сервере: ' + likesAmount);
-  console.log('Сейчас лайков на фронте: ' + likesCount);
+function handleLikeClick(evt, cardId, cardLikesCounter) {
+  if(evt.target.classList.contains('card__like_active')) {
+    evt.target.classList.toggle('card__like_active');
+    removeLike(cardId, cardLikesCounter);
+  }
+  else {
+    evt.target.classList.toggle('card__like_active');
+    likeCard(cardId, cardLikesCounter);
+  }
 }
 
 function handleCardClick(link, name) {
