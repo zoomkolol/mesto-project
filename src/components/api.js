@@ -1,8 +1,4 @@
-import { data } from 'autoprefixer';
-import {updateProfileValues, updateAvatar, profileAvatar} from './modal';
-import {renderCard} from "./card";
-
-let myID;
+import {updateProfileValues, updateAvatar, renderCard, updateLikes, removeCardFromDOM} from '../index.js';
 
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-26',
@@ -12,7 +8,25 @@ const config = {
   }
 }
 
-export function getCards() {
+export function getProfileAndCards() {
+  return fetch('https://nomoreparties.co/v1/plus-cohort-26/users/me', {
+    headers: config.headers
+  })
+  .then(res => {
+    if (res.ok) {
+      return res.json();
+    }
+  return Promise.reject(`Ошибка: ${res.status}`);
+  })
+  .then((data) => {
+    updateProfileValues(data.name, data.about);
+    updateAvatar(data.avatar);
+    getCards(data._id);
+  })
+  .catch(err => console.log(err));
+}
+
+function getCards(myID) {
   return fetch('https://nomoreparties.co/v1/plus-cohort-26/cards', {
     headers: config.headers
   })
@@ -31,30 +45,12 @@ export function getCards() {
       }
 
       if(myID === card.owner._id) {
-        renderCard(card.name, card.link, card.likes.length, true, card._id, isLiked);
+        renderCard(card.name, card.link, card.likes.length, true, card._id, isLiked, true);
       }
       else {
-        renderCard(card.name, card.link, card.likes.length, false, card._id, isLiked);
+        renderCard(card.name, card.link, card.likes.length, false, card._id, isLiked, true);
       }
     });
-  })
-  .catch(err => console.log(err));
-}
-
-export function getMyProfile() {
-  return fetch('https://nomoreparties.co/v1/plus-cohort-26/users/me', {
-    headers: config.headers
-  })
-  .then(res => {
-    if (res.ok) {
-      return res.json();
-    }
-  return Promise.reject(`Ошибка: ${res.status}`);
-  })
-  .then((data) => {
-    updateProfileValues(data.name, data.about);
-    profileAvatar.src = data.avatar;
-    myID = data._id;
   })
   .catch(err => console.log(err));
 }
@@ -122,7 +118,7 @@ export function addCard(name, link, button) {
   return Promise.reject(`Ошибка: ${res.status}`);
   })
   .then((data) => {
-    renderCard(data.name, data.link, data.likes.length, true, data._id, false);
+    renderCard(data.name, data.link, data.likes.length, true, data._id, false, false);
   })
   .catch(err => console.log(err))
   .finally(() => {
@@ -130,7 +126,7 @@ export function addCard(name, link, button) {
   });
 }
 
-export function deleteCard(id) {
+export function deleteCard(id, card) {
   return fetch(`https://nomoreparties.co/v1/plus-cohort-26/cards/${id}`, {
     method: 'DELETE',
     headers: config.headers,
@@ -141,10 +137,11 @@ export function deleteCard(id) {
     }
   return Promise.reject(`Ошибка: ${res.status}`);
   })
+  .then(removeCardFromDOM(card))
   .catch(err => console.log(err));
 }
 
-export function likeCard(id, cardLikesCounter) {
+export function likeCard(id, cardLikesCounter, likeButton) {
   return fetch(`https://nomoreparties.co/v1/plus-cohort-26/cards/likes/${id}`, {
     method: 'PUT',
     headers: config.headers,
@@ -155,11 +152,11 @@ export function likeCard(id, cardLikesCounter) {
     }
   return Promise.reject(`Ошибка: ${res.status}`);
   })
-  .then(data => cardLikesCounter.textContent = data.likes.length)
+  .then(data => updateLikes(data.likes.length, cardLikesCounter, likeButton))
   .catch(err => console.log(err));
 }
 
-export function removeLike(id, cardLikesCounter) {
+export function removeLike(id, cardLikesCounter, likeButton) {
   return fetch(`https://nomoreparties.co/v1/plus-cohort-26/cards/likes/${id}`, {
     method: 'DELETE',
     headers: config.headers,
@@ -170,6 +167,7 @@ export function removeLike(id, cardLikesCounter) {
     }
   return Promise.reject(`Ошибка: ${res.status}`);
   })
-  .then(data => cardLikesCounter.textContent = data.likes.length)
+  .then(data => updateLikes(data.likes.length, cardLikesCounter, likeButton))
   .catch(err => console.log(err));
 }
+

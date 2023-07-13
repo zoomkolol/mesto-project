@@ -1,46 +1,16 @@
-import {renderCard} from './card.js';
-import {cardForm} from '../index.js';
-import {changeName, changeAvatar, addCard} from './api.js';
-
-const popupEditProfile = document.querySelector('.popup__edit-profile');
-const popupEditCard = document.querySelector('.popup__edit-card');
-const popupAddAvatar = document.querySelector('.popup__edit-avatar');
-
-export const profileName = document.querySelector('.profile__name');
-export const profileDesc = document.querySelector('.profile__description');
-export const profileAvatar = document.querySelector('.profile__avatar');
-
-const profileSubmit = document.querySelector('#popup__submit-edit-profile_btn');
-const cardSubmit = document.querySelector('#popup__submit-edit-card_btn');
-const avatarSubmit = document.querySelector('#popup__submit-edit-avatar_btn');
-
-
-const nameInput = document.querySelector('input[name="name"]');
-const jobInput = document.querySelector('input[name="status"]');
-const avatarInput = document.querySelector('input[name="avatar"]');
-
-const placeInput = document.querySelector('input[name="place"]');
-const linkInput = document.querySelector('input[name="link"]');
-
-
-
-export function updateProfileValues(name, about) {
-  profileName.textContent = name;
-  profileDesc.textContent = about;
-}
-
-export function updateAvatar(avatar) {
-  profileAvatar.src = avatar;
-}
+const popups = document.querySelectorAll('.popup');
+export const popupEditProfile = document.querySelector('.popup__edit-profile');
+export const popupEditCard = document.querySelector('.popup__edit-card');
+export const popupAddAvatar = document.querySelector('.popup__edit-avatar');
 
 export function openPopup(popup) {
   document.addEventListener('keydown', handleEscapeKey);
   popup.classList.add('popup_opened');
 }
 
-export function openPopupEditProfileBtn() {
+export function openPopupEditProfileBtn(nameInput, aboutInput, profileName, profileDesc) {
   nameInput.value = profileName.textContent;
-  jobInput.value = profileDesc.textContent;
+  aboutInput.value = profileDesc.textContent;
   openPopup(popupEditProfile);
 }
 
@@ -52,12 +22,12 @@ export function openPopupAddAvatar() {
   openPopup(popupAddAvatar);
 }
 
-function closePopup(popup) {
+export function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', handleEscapeKey);
 }
 
-export function closePopupBtn(evt) {
+function closePopupBtn(evt) {
   closePopup(evt.closest('.popup'));
 }
 
@@ -67,18 +37,8 @@ function handleEscapeKey(evt) {
   }
 }
 
-export function handleProfileFormSubmit() {
-  changeName(nameInput.value, jobInput.value, profileSubmit);
-  closePopup(popupEditProfile);
-}
-
-export function handleAvatarFormSubmit() {
-  changeAvatar(avatarInput.value, avatarSubmit);
-  closePopup(popupAddAvatar);
-}
-
-export function handleCardFormSubmit() {
-  addCard(placeInput.value, linkInput.value, cardSubmit);
-  cardForm.reset();
-  closePopup(popupEditCard);
-}
+popups.forEach(popup => popup.addEventListener('click', function(evt) {
+  if(evt.target.classList.contains('popup__close') || evt.target.classList.contains('popup__overlay')) {
+    closePopupBtn(evt.target);
+  }
+}));
