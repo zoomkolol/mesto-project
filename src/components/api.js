@@ -1,5 +1,3 @@
-import {updateProfileValues, updateAvatar, renderCard, updateLikes, removeCardFromDOM} from '../index.js';
-
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-26',
   headers: {
@@ -18,15 +16,9 @@ export function getProfileAndCards() {
     }
   return Promise.reject(`Ошибка: ${res.status}`);
   })
-  .then((data) => {
-    updateProfileValues(data.name, data.about);
-    updateAvatar(data.avatar);
-    getCards(data._id);
-  })
-  .catch(err => console.log(err));
 }
 
-function getCards(myID) {
+export function getCards() {
   return fetch('https://nomoreparties.co/v1/plus-cohort-26/cards', {
     headers: config.headers
   })
@@ -36,36 +28,9 @@ function getCards(myID) {
     }
   return Promise.reject(`Ошибка: ${res.status}`);
   })
-  .then((data) => {
-    data.forEach(card => {
-      const like = card.likes.find(like => like._id === myID);
-      let isLiked = false;
-      if(like) {
-        isLiked = true;
-      }
-
-      if(myID === card.owner._id) {
-        renderCard(card.name, card.link, card.likes.length, true, card._id, isLiked, true);
-      }
-      else {
-        renderCard(card.name, card.link, card.likes.length, false, card._id, isLiked, true);
-      }
-    });
-  })
-  .catch(err => console.log(err));
 }
 
-function renderLoadingText(button, isLoading) {
-  if(isLoading) {
-    button.textContent = 'Сохранение...';
-  }
-  else {
-    button.textContent = 'Сохранить';
-  }
-}
-
-export function changeName(name, about, button) {
-  renderLoadingText(button, true);
+export function changeName(name, about) {
   return fetch('https://nomoreparties.co/v1/plus-cohort-26/users/me', {
     method: 'PATCH',
     headers: config.headers,
@@ -74,18 +39,15 @@ export function changeName(name, about, button) {
       about: about
     })
   })
-  .then(res => res.json())
-  .then((data) => {
-    updateProfileValues(data.name, data.about);
+  .then(res => {
+    if (res.ok) {
+      return res.json();
+    }
+  return Promise.reject(`Ошибка: ${res.status}`);
   })
-  .catch(err => console.log(err))
-  .finally(() => {
-    renderLoadingText(button, false);
-  });
 }
 
-export function changeAvatar(url, button) {
-  renderLoadingText(button, true);
+export function changeAvatar(url) {
   return fetch('https://nomoreparties.co/v1/plus-cohort-26/users/me/avatar', {
     method: 'PATCH',
     headers: config.headers,
@@ -93,16 +55,15 @@ export function changeAvatar(url, button) {
       avatar: url
     })
   })
-  .then(res => res.json())
-  .then(data => updateAvatar(data.avatar))
-  .catch(err => console.log(err))
-  .finally(() => {
-    renderLoadingText(button, false);
-  });
+  .then(res => {
+    if (res.ok) {
+      return res.json();
+    }
+  return Promise.reject(`Ошибка: ${res.status}`);
+  })
 }
 
-export function addCard(name, link, button) {
-  renderLoadingText(button, true);
+export function addCard(name, link) {
   return fetch('https://nomoreparties.co/v1/plus-cohort-26/cards', {
     method: 'POST',
     headers: config.headers,
@@ -117,16 +78,9 @@ export function addCard(name, link, button) {
     }
   return Promise.reject(`Ошибка: ${res.status}`);
   })
-  .then((data) => {
-    renderCard(data.name, data.link, data.likes.length, true, data._id, false, false);
-  })
-  .catch(err => console.log(err))
-  .finally(() => {
-    renderLoadingText(button, false);
-  });
 }
 
-export function deleteCard(id, card) {
+export function deleteCard(id) {
   return fetch(`https://nomoreparties.co/v1/plus-cohort-26/cards/${id}`, {
     method: 'DELETE',
     headers: config.headers,
@@ -137,11 +91,9 @@ export function deleteCard(id, card) {
     }
   return Promise.reject(`Ошибка: ${res.status}`);
   })
-  .then(removeCardFromDOM(card))
-  .catch(err => console.log(err));
 }
 
-export function likeCard(id, cardLikesCounter, likeButton) {
+export function likeCard(id) {
   return fetch(`https://nomoreparties.co/v1/plus-cohort-26/cards/likes/${id}`, {
     method: 'PUT',
     headers: config.headers,
@@ -152,11 +104,9 @@ export function likeCard(id, cardLikesCounter, likeButton) {
     }
   return Promise.reject(`Ошибка: ${res.status}`);
   })
-  .then(data => updateLikes(data.likes.length, cardLikesCounter, likeButton))
-  .catch(err => console.log(err));
 }
 
-export function removeLike(id, cardLikesCounter, likeButton) {
+export function removeLike(id) {
   return fetch(`https://nomoreparties.co/v1/plus-cohort-26/cards/likes/${id}`, {
     method: 'DELETE',
     headers: config.headers,
@@ -167,7 +117,5 @@ export function removeLike(id, cardLikesCounter, likeButton) {
     }
   return Promise.reject(`Ошибка: ${res.status}`);
   })
-  .then(data => updateLikes(data.likes.length, cardLikesCounter, likeButton))
-  .catch(err => console.log(err));
 }
 

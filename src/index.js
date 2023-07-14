@@ -1,8 +1,8 @@
 import './styles/index.css';
 import {enableValidation} from './components/validate.js';
-import {popupEditProfile, popupEditCard, popupAddAvatar, openPopupEditProfileBtn, openPopupEditCardBtn, openPopupAddAvatar, openPopup, closePopup} from './components/modal.js';
-import {getProfileAndCards, changeName, changeAvatar, addCard, deleteCard, likeCard, removeLike} from './components/api.js';
-import {createCard} from './components/card.js';
+import {popupEditProfile, popupEditCard, popupAddAvatar, openPopup, closePopup} from './components/modal.js';
+import {getProfileAndCards, getCards, changeName, changeAvatar, addCard, deleteCard, likeCard, removeLike} from './components/api.js';
+import {createCard, updateLikes, removeCard} from './components/card.js';
 
 //#region Объявление констант
 const profile = document.querySelector('.profile');
@@ -36,29 +36,74 @@ const linkInput = document.querySelector('input[name="link"]');
 const cardsContainer = document.querySelector('.cards');
 //#endregion
 
+function initialCards() {
+  getProfileAndCards()
+  .then((data) => {
+    updateProfileValues(data.name, data.about);
+    profileAvatar.src = data.avatar;
+    let userId = data._id;
+    getCards()
+    .then((data) => {
+      data.forEach(card => {
+        renderCard(userId, card.owner._id, card.name, card.link, card.likes, card._id, true);
+      });
+    })
+    .catch(err => console.log(err));
+  })
+  .catch(err => console.log(err));
+}
+
+function isLoading(button, isLoading) {
+  if(isLoading) {
+    button.textContent = 'Сохранение...';
+  }
+  else {
+    button.textContent = 'Сохранить';
+  }
+}
+
 export function updateProfileValues(name, about) {
   profileName.textContent = name;
   profileDesc.textContent = about;
 }
 
-export function updateAvatar(avatar) {
-  profileAvatar.src = avatar;
-}
-
 export function handleProfileFormSubmit() {
-  changeName(nameInput.value, aboutInput.value, profileSubmit);
-  closePopup(popupEditProfile);
+  isLoading(profileSubmit, true);
+  changeName(nameInput.value, aboutInput.value)
+  .then((data) => {
+    updateProfileValues(data.name, data.about);
+  })
+  .catch(err => console.log(err))
+  .finally(() => {
+    isLoading(profileSubmit, false);
+    closePopup(popupEditProfile);
+  });
+
 }
 
 export function handleAvatarFormSubmit() {
-  changeAvatar(avatarInput.value, avatarSubmit);
-  closePopup(popupAddAvatar);
+  isLoading(avatarSubmit, true);
+  changeAvatar(avatarInput.value)
+  .then(data => profileAvatar.src = data.avatar)
+  .catch(err => console.log(err))
+  .finally(() => {
+    isLoading(avatarSubmit, false);
+    closePopup(popupAddAvatar);
+  });
 }
 
 export function handleCardFormSubmit() {
-  addCard(placeInput.value, linkInput.value, cardSubmit);
-  cardForm.reset();
+  isLoading(cardSubmit, true);
+  addCard(placeInput.value, linkInput.value)
+  .then((data) => {
+    renderCard(data.owner._id, data.owner._id, data.name, data.link, data.likes, data._id, false);
+  })
+  .catch(err => console.log(err))
+  .finally(() => {
+    isLoading(cardSubmit, false);
+    cardForm.reset();
   closePopup(popupEditCard);
+  });
 }
 
 export function handleCardClick(link, name) {
@@ -68,27 +113,27 @@ export function handleCardClick(link, name) {
   popupImgDesc.textContent = name;
 }
 
+export function handleCardDelete(cardId, evt) {
+  deleteCard(cardId)
+  .then(removeCard(evt))
+  .catch(err => console.log(err));
+}
+
 function handleLikeClick(cardId, cardLikesCounter, evt) {
   if(evt.target.classList.contains('card__like_active')) {
-    removeLike(cardId, cardLikesCounter, evt);
+    removeLike(cardId)
+    .then(data => updateLikes(data.likes.length, cardLikesCounter, evt))
+    .catch(err => console.log(err));
   }
   else {
-    likeCard(cardId, cardLikesCounter, evt);
+    likeCard(cardId)
+    .then(data => updateLikes(data.likes.length, cardLikesCounter, evt))
+    .catch(err => console.log(err));
   }
 }
 
-export function updateLikes(likesAmount, cardLikesCounter, likeButton) {
-  cardLikesCounter.textContent = likesAmount;
-  likeButton.target.classList.toggle('card__like_active');
-}
-
-export function removeCardFromDOM(card) {
-  card.target.closest('.card').remove();
-}
-
-
-export function renderCard(cardName, cardLink, cardLikes, myCard, cardId, isLiked, append) {
-  const newCard = createCard(cardName, cardLink, cardLikes, myCard, cardId, isLiked, handleCardClick, handleLikeClick, deleteCard, removeLike, likeCard);
+export function renderCard(userId, cardOwner, cardName, cardLink, cardLikes, cardId, append) {
+  const newCard = createCard(userId, cardOwner, cardName, cardLink, cardLikes, cardId, handleCardClick, handleLikeClick, handleCardDelete);
   if(append) {
     cardsContainer.append(newCard);
   }
@@ -96,6 +141,23 @@ export function renderCard(cardName, cardLink, cardLikes, myCard, cardId, isLike
     cardsContainer.prepend(newCard);
   }
 }
+
+export function openPopupEditProfileBtn() {
+  nameInput.value = profileName.textContent;
+  aboutInput.value = profileDesc.textContent;
+  openPopup(popupEditProfile);
+}
+
+export function openPopupEditCardBtn() {
+  openPopup(popupEditCard);
+}
+
+export function openPopupAddAvatar() {
+  openPopup(popupAddAvatar);
+}
+
+
+initialCards();
 
 enableValidation({
   formSelector: '.popup__form',
@@ -105,12 +167,10 @@ enableValidation({
   errorClass: 'popup__text_error_active'
 });
 
-profileEditBtn.addEventListener('click', () => openPopupEditProfileBtn(nameInput, aboutInput, profileName, profileDesc));
+profileEditBtn.addEventListener('click', openPopupEditProfileBtn);
 profileAddBtn.addEventListener('click', openPopupEditCardBtn);
 profileAddAvatar.addEventListener('click', openPopupAddAvatar);
 
 profileForm.addEventListener('submit', handleProfileFormSubmit);
 avatarForm.addEventListener('submit', handleAvatarFormSubmit);
 cardForm.addEventListener('submit', handleCardFormSubmit);
-
-getProfileAndCards();

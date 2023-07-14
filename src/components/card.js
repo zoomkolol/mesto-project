@@ -1,6 +1,6 @@
 const cardTemplate = document.querySelector('#card-template').content;
 
-export function createCard(cardName, cardLink, cardLikes, myCard, cardId, isLiked, handleCardClick, handleLikeClick, deleteCard, removeLike, likeCard) {
+export function createCard(userId, cardOwner, cardName, cardLink, cardLikes, cardId, handleCardClick, handleLikeClick, handleCardDelete) {
   if(cardName == undefined) {
     console.log('cardName is ' + cardName);
   }
@@ -15,35 +15,36 @@ export function createCard(cardName, cardLink, cardLikes, myCard, cardId, isLike
   cardImgDesc.textContent = cardName;
   cardImage.setAttribute('src', cardLink);
   cardImage.setAttribute('alt', cardName);
-  cardLikesCounter.textContent = cardLikes;
+  cardLikesCounter.textContent = cardLikes.length;
 
-  if(isLiked) {
+  if(cardLikes.find(like => like._id === userId)) {
     cardLikeBtn.classList.add('card__like_active');
-    /*cardLikeBtn.addEventListener('click', function(evt) {
-      removeLike(cardId, cardLikesCounter, evt);
-    })*/
   }
-  /*else {
-    cardLikeBtn.addEventListener('click', function(evt) {
-      likeCard(cardId, cardLikesCounter, evt);
-    })
-  }*/
 
   cardLikeBtn.addEventListener('click', (evt) => {
     handleLikeClick(cardId, cardLikesCounter, evt);
   })
 
 
-  if(!myCard) {
+  if(userId !== cardOwner) {
     cardDelete.remove();
   }
   else {
     cardDelete.addEventListener('click', function(evt) {
-      deleteCard(cardId, evt);
+      handleCardDelete(cardId, evt);
     })
   }
 
   cardImage.addEventListener('click', () => handleCardClick(cardLink, cardName));
 
   return cardElement;
+}
+
+export function updateLikes(likesAmount, cardLikesCounter, evt) {
+  cardLikesCounter.textContent = likesAmount;
+  evt.target.classList.toggle('card__like_active');
+}
+
+export function removeCard(evt) {
+  evt.target.closest('.card').remove();
 }

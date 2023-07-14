@@ -8,20 +8,6 @@ export function openPopup(popup) {
   popup.classList.add('popup_opened');
 }
 
-export function openPopupEditProfileBtn(nameInput, aboutInput, profileName, profileDesc) {
-  nameInput.value = profileName.textContent;
-  aboutInput.value = profileDesc.textContent;
-  openPopup(popupEditProfile);
-}
-
-export function openPopupEditCardBtn() {
-  openPopup(popupEditCard);
-}
-
-export function openPopupAddAvatar() {
-  openPopup(popupAddAvatar);
-}
-
 export function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', handleEscapeKey);
