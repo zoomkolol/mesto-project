@@ -41,7 +41,7 @@ function initialCards() {
   .then((data) => {
     updateProfileValues(data.name, data.about);
     profileAvatar.src = data.avatar;
-    let userId = data._id;
+    const userId = data._id;
     getCards()
     .then((data) => {
       data.forEach(card => {
@@ -72,11 +72,11 @@ export function handleProfileFormSubmit() {
   changeName(nameInput.value, aboutInput.value)
   .then((data) => {
     updateProfileValues(data.name, data.about);
+    closePopup(popupEditProfile);
   })
   .catch(err => console.log(err))
   .finally(() => {
     isLoading(profileSubmit, false);
-    closePopup(popupEditProfile);
   });
 
 }
@@ -84,11 +84,14 @@ export function handleProfileFormSubmit() {
 export function handleAvatarFormSubmit() {
   isLoading(avatarSubmit, true);
   changeAvatar(avatarInput.value)
-  .then(data => profileAvatar.src = data.avatar)
+  .then((data) => {
+    profileAvatar.src = data.avatar;
+    closePopup(popupAddAvatar);
+    avatarForm.reset();
+  })
   .catch(err => console.log(err))
   .finally(() => {
     isLoading(avatarSubmit, false);
-    closePopup(popupAddAvatar);
   });
 }
 
@@ -97,12 +100,12 @@ export function handleCardFormSubmit() {
   addCard(placeInput.value, linkInput.value)
   .then((data) => {
     renderCard(data.owner._id, data.owner._id, data.name, data.link, data.likes, data._id, false);
+    closePopup(popupEditCard);
+    cardForm.reset();
   })
   .catch(err => console.log(err))
   .finally(() => {
     isLoading(cardSubmit, false);
-    cardForm.reset();
-  closePopup(popupEditCard);
   });
 }
 
