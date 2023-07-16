@@ -45,7 +45,7 @@ function initialCards() {
     getCards()
     .then((data) => {
       data.forEach(card => {
-        renderCard(userId, card.owner._id, card.name, card.link, card.likes, card._id, true);
+        renderCard(userId, card, true);
       });
     })
     .catch(err => console.log(err));
@@ -99,7 +99,7 @@ export function handleCardFormSubmit() {
   isLoading(cardSubmit, true);
   addCard(placeInput.value, linkInput.value)
   .then((data) => {
-    renderCard(data.owner._id, data.owner._id, data.name, data.link, data.likes, data._id, false);
+    renderCard(data.owner._id, data, false);
     closePopup(popupEditCard);
     cardForm.reset();
   })
@@ -135,8 +135,8 @@ function handleLikeClick(cardId, cardLikesCounter, evt) {
   }
 }
 
-export function renderCard(userId, cardOwner, cardName, cardLink, cardLikes, cardId, append) {
-  const newCard = createCard(userId, cardOwner, cardName, cardLink, cardLikes, cardId, handleCardClick, handleLikeClick, handleCardDelete);
+export function renderCard(userId, card, append) {
+  const newCard = createCard(userId, card, handleCardClick, handleLikeClick, handleCardDelete);
   if(append) {
     cardsContainer.append(newCard);
   }

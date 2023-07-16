@@ -1,8 +1,8 @@
 const cardTemplate = document.querySelector('#card-template').content;
 
-export function createCard(userId, cardOwner, cardName, cardLink, cardLikes, cardId, handleCardClick, handleLikeClick, handleCardDelete) {
-  if(cardName == undefined) {
-    console.log('cardName is ' + cardName);
+export function createCard(userId, card, handleCardClick, handleLikeClick, handleCardDelete) {
+  if(card.name == undefined) {
+    console.log('cardName is ' + card.name);
   }
 
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
@@ -12,30 +12,29 @@ export function createCard(userId, cardOwner, cardName, cardLink, cardLikes, car
   const cardDelete = cardElement.querySelector('.card__delete');
   const cardLikeBtn = cardElement.querySelector('.card__like');
 
-  cardImgDesc.textContent = cardName;
-  cardImage.setAttribute('src', cardLink);
-  cardImage.setAttribute('alt', cardName);
-  cardLikesCounter.textContent = cardLikes.length;
+  cardImgDesc.textContent = card.name;
+  cardImage.setAttribute('src', card.link);
+  cardImage.setAttribute('alt', card.name);
+  cardLikesCounter.textContent = card.likes.length;
 
-  if(cardLikes.find(like => like._id === userId)) {
+  if(card.likes.find(like => like._id === userId)) {
     cardLikeBtn.classList.add('card__like_active');
   }
 
   cardLikeBtn.addEventListener('click', (evt) => {
-    handleLikeClick(cardId, cardLikesCounter, evt);
+    handleLikeClick(card._id, cardLikesCounter, evt);
   })
 
-
-  if(userId !== cardOwner) {
+  if(userId !== card.owner._id) {
     cardDelete.remove();
   }
   else {
     cardDelete.addEventListener('click', function(evt) {
-      handleCardDelete(cardId, evt);
+      handleCardDelete(card._id, evt);
     })
   }
 
-  cardImage.addEventListener('click', () => handleCardClick(cardLink, cardName));
+  cardImage.addEventListener('click', () => handleCardClick(card.link, card.name));
 
   return cardElement;
 }
